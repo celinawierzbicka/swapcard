@@ -23,8 +23,8 @@ const Root = () => (
     <Fragment>
       <Navbar />
       <Switch>
-        <Route to="/" exact component={Home} />
-        <Route to="/artist/:id" component={ArtistDetails} />
+        <Route path="/" exact component={Home} />
+        <Route path="/artist/:id" component={ArtistDetails} />
         <Redirect to="/" />
       </Switch>
     </Fragment>

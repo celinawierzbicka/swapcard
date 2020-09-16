@@ -8,11 +8,9 @@ export const SEARCH_ARTISTS = gql`
           id
           name
           country
+          disambiguation
           mediaWikiImages {
-            descriptionURL
-            size
-            width
-            height
+            url
             canonicalTitle
           }
         }
