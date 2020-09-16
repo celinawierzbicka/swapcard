@@ -30,7 +30,7 @@ const Navbar = () => {
         <Toolbar>
           <Link to="/">
             <Box className={classes.logoWrapper}>
-              <img src={logo} />
+              <img src={logo} alt="logo" />
             </Box>
           </Link>
           <Typography variant="h6" className={classes.title}>

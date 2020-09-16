@@ -12,7 +12,7 @@ import ArtistDetails from "./pages/ArtistDetails";
 import Navbar from "./components/Navbar";
 
 import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
+import { ApolloProvider } from "@apollo/react-hooks";
 
 const client = new ApolloClient({
   uri: "https://graphbrainz.herokuapp.com",
