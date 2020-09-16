@@ -1,17 +1,39 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React, { Fragment } from "react";
+import ReactDOM from "react-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import "./index.css";
+import Home from "./pages/Home";
+import ArtistDetails from "./pages/ArtistDetails";
+import Navbar from "./components/Navbar";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+
+const client = new ApolloClient({
+  uri: "https://graphbrainz.herokuapp.com",
+});
+
+const Root = () => (
+  <Router>
+    <Fragment>
+      <Navbar />
+      <Switch>
+        <Route to="/" exact component={Home} />
+        <Route to="/artist/:id" component={ArtistDetails} />
+        <Redirect to="/" />
+      </Switch>
+    </Fragment>
+  </Router>
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <Root />
+  </ApolloProvider>,
+  document.getElementById("root")
+);
