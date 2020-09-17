@@ -9,14 +9,14 @@ import "./Home.css";
 const Home = () => {
   const [artists, setArtists] = useState([]);
   const [searchTerm, setSearchTerm] = useState("nirvana");
-  const { loading, error, data, refetch } = useQuery(SEARCH_ARTISTS, {variables: { searchTerm }})
-
+  const { loading, error, data, refetch } = useQuery(SEARCH_ARTISTS, {variables: { searchTerm }, errorPolicy: 'all' })
+  
   useEffect(() => {
     refetch();
   }, [searchTerm])
 
   useEffect(() => {
-    if(data) setArtists(data.search.artists.nodes)
+    if(data && data.search.artists) setArtists(data.search.artists.nodes)
   }, [data])
 
   const handleChange = (inputValue) => {
