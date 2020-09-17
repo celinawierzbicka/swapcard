@@ -6,6 +6,9 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducer from "./store/reducer";
 import "./index.css";
 import Home from "./pages/Home";
 import ArtistDetails from "./pages/ArtistDetails";
@@ -13,6 +16,8 @@ import Navbar from "./components/Navbar";
 
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+
+const store = createStore(reducer);
 
 const client = new ApolloClient({
   uri: "https://graphbrainz.herokuapp.com",
@@ -32,8 +37,10 @@ const Root = () => (
 );
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <Root />
-  </ApolloProvider>,
+  <Provider store={store}>
+    <ApolloProvider client={client}>
+      <Root />
+    </ApolloProvider>
+  </Provider>,
   document.getElementById("root")
 );

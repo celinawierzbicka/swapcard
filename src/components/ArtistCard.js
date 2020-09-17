@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -21,12 +22,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ArtistItem = ({ artist }) => {
+const ArtistCard = ({ artist }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const image = artist.mediaWikiImages.length > 0 ? artist.mediaWikiImages[0].url : defaultImage;
   const imageTitle = artist.mediaWikiImages.length > 0 ? artist.mediaWikiImages[0].canonicalTitle : null;
   const description = artist.disambiguation ? artist.disambiguation : "No description available."
+
+  const selectArtist = (artist) => {
+    localStorage.setItem('selectedArtist', JSON.stringify(artist));
+    dispatch({type: "SELECT_ARTIST", payload: artist});
+  }
 
   return (
       <Card className={classes.root}>
@@ -46,7 +53,7 @@ const ArtistItem = ({ artist }) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Link to={`/artist/${artist.id}`}>
+          <Link to={`/artist/${artist.id}`} onClick={() => selectArtist(artist)}>
             <Button size="small" color="primary">
               Learn More
             </Button>
@@ -56,4 +63,4 @@ const ArtistItem = ({ artist }) => {
   );
 }
 
-export default ArtistItem;
+export default ArtistCard;

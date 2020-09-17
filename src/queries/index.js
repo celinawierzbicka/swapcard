@@ -13,6 +13,22 @@ export const SEARCH_ARTISTS = gql`
             url
             canonicalTitle
           }
+          releases {
+            edges {
+              node {
+                id
+                title
+                date
+              }
+            }
+          }
+          tags {
+            edges {
+              node {
+                name
+              }
+            }
+          }
         }
       }
     }

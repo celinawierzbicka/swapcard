@@ -3,7 +3,7 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Alert from "@material-ui/lab/Alert";
 import ClipLoader from "react-spinners/ClipLoader";
-import ArtistItem from "./ArtistItem";
+import ArtistCard from "./ArtistCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +31,7 @@ const SearchResults = ({ artists, loading, error }) => {
 
   const renderArtists = (artists) => {
     return artists.map((artist) => (
-      <ArtistItem key={artist.id} artist={artist} />
+      <ArtistCard key={artist.id} artist={artist} />
     ));
   };
 
