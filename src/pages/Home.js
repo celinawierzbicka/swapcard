@@ -22,6 +22,7 @@ const Home = () => {
   const classes = useStyles();
   const [artists, setArtists] = useState([]);
   const [searchTerm, setSearchTerm] = useState("nirvana");
+  const [emptyStringSearch, setEmptyStringSearch] = useState(false);
   const { loading, error, data, refetch } = useQuery(SEARCH_ARTISTS, {
     variables: { searchTerm },
     errorPolicy: "all",
@@ -39,14 +40,19 @@ const Home = () => {
   // searchTerm is updated on search form submit and not on each new letter
   // typed to prevent excessive number or queries the slow down loading of results
   const handleChange = (inputValue) => {
-    setSearchTerm(inputValue);
+    if(inputValue === "") {
+      setEmptyStringSearch(true);
+    } else {
+      setEmptyStringSearch(false);
+      setSearchTerm(inputValue);
+    }
   };
 
   return (
     <Container maxWidth={false} className={classes.mainHome}>
       <Box className={classes.wrapper}>
         <SearchBar handleChange={handleChange} />
-        <SearchResults artists={artists} loading={loading} error={error} />
+        <SearchResults artists={artists} loading={loading} error={error} emptyStringSearch={emptyStringSearch}/>
       </Box>
       <Favorites displayinMobile={false}/>
     </Container>

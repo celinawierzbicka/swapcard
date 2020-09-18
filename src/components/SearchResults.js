@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchResults = ({ artists, loading, error }) => {
+const SearchResults = ({ artists, loading, error, emptyStringSearch }) => {
   const classes = useStyles();
 
   const errorMessage = "Sorry, something went wrong. Please try another search and make sure the search is not empty.";
@@ -40,8 +40,8 @@ const SearchResults = ({ artists, loading, error }) => {
       {loading ? (
         <ClipLoader className={classes.spinner} size={100} loading={loading} />
       ) : null}
-      {error ? <Alert severity="error">{errorMessage}</Alert> : null}
-      {!loading && !error ? renderArtists(artists) : null}
+      {error || emptyStringSearch ? <Alert severity="error">{errorMessage}</Alert> : null}
+      {!loading && !error && !emptyStringSearch ? renderArtists(artists) : null}
     </Box>
   );
 };

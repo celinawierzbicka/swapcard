@@ -12,8 +12,10 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "column",
       width: "25%",
       alignSelf: "flex-start",
+      padding: theme.spacing(3),
       marginTop: theme.spacing(4),
       marginBottom: theme.spacing(4),
+      borderLeft: `2px solid ${theme.palette.primary.main}`
     },
   },
   favoritesWrapperMobile: {
