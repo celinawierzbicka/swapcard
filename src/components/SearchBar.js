@@ -15,14 +15,20 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: 350,
+    [theme.breakpoints.up('md')]: {
+      width: 350,
+    },
   },
   input: {
-    width: 350,
     marginBottom: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      width: 350,
+    },
   },
   searchButton: {
-    width: 350,
+    [theme.breakpoints.up('md')]: {
+      width: 350,
+    },
   },
 }));
 

@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 230,
   },
+  link: {
+    textDecoration: "none",
+  },
 }));
 
 const ArtistCard = ({ artist }) => {
@@ -53,7 +56,7 @@ const ArtistCard = ({ artist }) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Link to={`/artist/${artist.id}`} onClick={() => selectArtist(artist)}>
+          <Link className={classes.link} to={`/artist/${artist.id}`} onClick={() => selectArtist(artist)}>
             <Button size="small" color="primary">
               Learn More
             </Button>

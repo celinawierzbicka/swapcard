@@ -40,6 +40,8 @@ const ArtistDetails = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+
+  // aertist and facoriteArtists are stores in Redux store
   const artist = useSelector((state) => state.selectedArtist);
   const favoriteArtists = useSelector((state) => state.favoriteArtists);
 
@@ -57,13 +59,7 @@ const ArtistDetails = () => {
 
   const favoritesActionText = isFavorite ? "Remove from favorites" : "Add to favorites";
  
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   const addToFavorites = (artist) => {
     setOpen(true);
@@ -107,7 +103,7 @@ const ArtistDetails = () => {
           </Typography>
           {renderReleases(artist.releases.edges)}
         </Box>
-        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
           <Alert onClose={handleClose} severity="success">
             {artist.name} was added to favorites!
           </Alert>
