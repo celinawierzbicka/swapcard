@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "flex-start",
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
-    padding: theme.spacing(2),
+    // padding: theme.spacing(2),
     // border: `solid 1px ${theme.palette.primary.main}`,
     borderRadius: 5,
   },
@@ -39,7 +39,7 @@ const Favorites = () => {
   );
 
   const renderFavotiteArtists = (artists) => {
-    return artists.map((artist) => <FavoriteArtist artist={artist} />);
+    return artists.map((artist) => <FavoriteArtist key={artist.id} artist={artist} />);
   };
 
   return (

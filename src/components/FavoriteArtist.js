@@ -2,10 +2,9 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import Box from "@material-ui/core/Box";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import DeleteIcon from '@material-ui/icons/Delete';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +35,7 @@ const FavoriteArtist = ({ artist }) => {
         <Typography className={classes.title} variant="button">
           {artist.name}
         </Typography>
-        <DeleteIcon color="primary" onClick={() => removeFromFavorites(artist)}/>
+        <RemoveCircleOutlineIcon color="primary" onClick={() => removeFromFavorites(artist)}/>
       </CardContent>
     </Card>
   );

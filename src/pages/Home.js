@@ -41,7 +41,7 @@ const Home = () => {
   };
 
   return (
-    <Container maxWidth="false" className={classes.mainHome}>
+    <Container maxWidth={false} className={classes.mainHome}>
       <Box className={classes.wrapper}>
         <SearchBar handleChange={handleChange} />
         <SearchResults artists={artists} loading={loading} error={error} />

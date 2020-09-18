@@ -100,7 +100,7 @@ const ArtistDetails = () => {
   };
 
   return (
-    <Container maxWidth="false" className={classes.mainArtistDetails}>
+    <Container maxWidth={false} className={classes.mainArtistDetails}>
       <Box className={classes.artistDetails}>
         <Box className={classes.sectionHeading}>
           <Typography variant="h2" component="h2">
