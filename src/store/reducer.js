@@ -1,5 +1,6 @@
 const initialState = {
   searchTerm: "",
+  artists: [],
   selectedArtist: JSON.parse(localStorage.getItem('selectedArtist')) || null,
   favoriteArtists: JSON.parse(localStorage.getItem('favoriteArtists')) || [],
 };
@@ -8,6 +9,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_SEARCH_TERM":
       return { ...state, searchTerm: action.payload };
+    case "SEARCH_ARTISTS":
+      return { ...state, artists: action.payload };
     case "SELECT_ARTIST":
       return { ...state, selectedArtist: action.payload };
     case "ADD_TO_FAVORITES":

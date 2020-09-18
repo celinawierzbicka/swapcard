@@ -24,10 +24,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SearchResults = ({ artists, loading, error, emptyStringSearch }) => {
+const SearchResults = (props) => {
+  const { artists, loading, error, emptyStringSearch } = props;
   const classes = useStyles();
 
-  const errorMessage = "Sorry, something went wrong. Please try another search and make sure the search is not empty.";
+  const errorMessage = error ? "Sorry, something went wrong. Please try again." : "Please make sure the search field is not empty.";
 
   const renderArtists = (artists) => {
     return artists.map((artist) => (
@@ -37,9 +38,7 @@ const SearchResults = ({ artists, loading, error, emptyStringSearch }) => {
 
   return (
     <Box className={classes.root}>
-      {loading ? (
-        <ClipLoader className={classes.spinner} size={100} loading={loading} />
-      ) : null}
+      {loading ? <ClipLoader className={classes.spinner} size={100} loading={loading} /> : null}
       {error || emptyStringSearch ? <Alert severity="error">{errorMessage}</Alert> : null}
       {!loading && !error && !emptyStringSearch ? renderArtists(artists) : null}
     </Box>

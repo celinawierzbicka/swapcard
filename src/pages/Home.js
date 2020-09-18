@@ -22,29 +22,38 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [artists, setArtists] = useState([]);
+
+  // isFirstRender variable is set to prevent initial data fetch with useQuery and "" as initial value of searchTerm
+  const [isFirstRender, setIsFirstRender] = useState(true);
   const [emptyStringSearch, setEmptyStringSearch] = useState(false);
+
+  const artists = useSelector(state => state.artists);
   const searchTerm = useSelector((state) => state.searchTerm);
+
   const { loading, error, data, refetch } = useQuery(SEARCH_ARTISTS, {
     variables: { searchTerm },
     errorPolicy: "all",
+    skip: isFirstRender,
   });
 
-  // new query is sent on every update of searchTerm using Apollo's refetch function
+  // new data is fetched on every update of searchTerm using Apollo's refetch function
   useEffect(() => {
     refetch();
-  }, [searchTerm]);
+  }, [searchTerm, refetch]);
 
   useEffect(() => {
-    if (data && data.search.artists) setArtists(data.search.artists.nodes);
-  }, [data]);
+    if (data && data.search.artists) dispatch({ type: "SEARCH_ARTISTS", payload: data.search.artists.nodes });
+  }, [data, dispatch]);
 
   // searchTerm is updated on search form submit and not on each new letter
-  // typed to prevent excessive number or queries the slow down loading of results
+  // typed to prevent excessive number or queries that slow down loading of results.
+  // If form is sumitted with empty string, searchTerm is not updated to prevent call to database,
+  // and instead alert on no emty string search is displayed
   const handleChange = (inputValue) => {
     if(inputValue === "") {
       setEmptyStringSearch(true);
     } else {
+      setIsFirstRender(false);
       setEmptyStringSearch(false);
       dispatch({ type: "SET_SEARCH_TERM", payload: inputValue });
     }
@@ -54,9 +63,14 @@ const Home = () => {
     <Container maxWidth={false} className={classes.mainHome}>
       <Box className={classes.wrapper}>
         <SearchBar handleChange={handleChange} />
-        <SearchResults artists={artists} loading={loading} error={error} emptyStringSearch={emptyStringSearch}/>
+        <SearchResults
+          artists={artists}
+          loading={loading}
+          error={error}
+          emptyStringSearch={emptyStringSearch}
+        />
       </Box>
-      <Favorites displayinMobile={false}/>
+      <Favorites displayinMobile={false} />
     </Container>
   );
 };
