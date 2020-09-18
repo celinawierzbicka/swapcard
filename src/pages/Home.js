@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
+import { useSelector, useDispatch } from "react-redux";
 import { Box, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchBar from "../components/SearchBar";
@@ -20,9 +21,10 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [artists, setArtists] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("nirvana");
   const [emptyStringSearch, setEmptyStringSearch] = useState(false);
+  const searchTerm = useSelector((state) => state.searchTerm);
   const { loading, error, data, refetch } = useQuery(SEARCH_ARTISTS, {
     variables: { searchTerm },
     errorPolicy: "all",
@@ -44,7 +46,7 @@ const Home = () => {
       setEmptyStringSearch(true);
     } else {
       setEmptyStringSearch(false);
-      setSearchTerm(inputValue);
+      dispatch({ type: "SET_SEARCH_TERM", payload: inputValue });
     }
   };
 
