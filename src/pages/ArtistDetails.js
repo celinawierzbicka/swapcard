@@ -154,9 +154,9 @@ const ArtistDetails = () => {
           </Box>
           <Box className={classes.sectionReleases}>
             <Typography variant="h5" component="p">
-              Releases
+              Releases:
             </Typography>
-            {renderReleases(artist.releases.edges)}
+            {artist.releases.edges.length > 0 ? renderReleases(artist.releases.edges) : "No releases were found."}
           </Box>
           <Snackbar
             open={open}
