@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
+import { Box, Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import Favorites from "../components/Favorites";
 import { SEARCH_ARTISTS } from "../queries";
-import "./Home.css";
+
+const useStyles = makeStyles((theme) => ({
+  mainHome: {
+    display: "flex",
+  },
+  wrapper: {
+    width: "80%",
+  }
+}));
 
 const Home = () => {
+  const classes = useStyles();
   const [artists, setArtists] = useState([]);
   const [searchTerm, setSearchTerm] = useState("nirvana");
   const { loading, error, data, refetch } = useQuery(SEARCH_ARTISTS, {
@@ -30,11 +41,13 @@ const Home = () => {
   };
 
   return (
-    <div className="Home">
-      <SearchBar handleChange={handleChange} />
-      <SearchResults artists={artists} loading={loading} error={error} />
+    <Container maxWidth="false" className={classes.mainHome}>
+      <Box className={classes.wrapper}>
+        <SearchBar handleChange={handleChange} />
+        <SearchResults artists={artists} loading={loading} error={error} />
+      </Box>
       <Favorites />
-    </div>
+    </Container>
   );
 };
 
