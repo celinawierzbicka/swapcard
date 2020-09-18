@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   wrapper: {
+    width: "100%",
     [theme.breakpoints.up('md')]: {
       width: "80%",
     },
@@ -48,14 +49,14 @@ const Home = () => {
   // searchTerm is updated on search form submit and not on each new letter
   // typed to prevent excessive number or queries that slow down loading of results.
   // If form is sumitted with empty string, searchTerm is not updated to prevent call to database,
-  // and instead alert on no emty string search is displayed
-  const handleChange = (inputValue) => {
+  // and instead alert on no empty string search is displayed
+  const handleChange = async (inputValue) => {
     if(inputValue === "") {
       setEmptyStringSearch(true);
     } else {
-      setIsFirstRender(false);
       setEmptyStringSearch(false);
-      dispatch({ type: "SET_SEARCH_TERM", payload: inputValue });
+      await dispatch({ type: "SET_SEARCH_TERM", payload: inputValue });
+      setIsFirstRender(false);
     }
   };
 
@@ -68,6 +69,7 @@ const Home = () => {
           loading={loading}
           error={error}
           emptyStringSearch={emptyStringSearch}
+          searchTerm={searchTerm}
         />
       </Box>
       <Favorites displayinMobile={false} />

@@ -25,10 +25,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchResults = (props) => {
-  const { artists, loading, error, emptyStringSearch } = props;
+  const { artists, loading, error, emptyStringSearch, searchTerm } = props;
   const classes = useStyles();
 
-  const errorMessage = error ? "Sorry, something went wrong. Please try again." : "Please make sure the search field is not empty.";
+  const errorMessage = "Sorry, something went wrong. Please try again.";
+  const emptyStringMessage = "Please make sure the search field is not empty.";
+  const infoMessage = "Type the name of the artist and hit enter.";
+
+  const displayInfoMessage = searchTerm === "" && !error;
 
   const renderArtists = (artists) => {
     return artists.map((artist) => (
@@ -39,8 +43,10 @@ const SearchResults = (props) => {
   return (
     <Box className={classes.root}>
       {loading ? <ClipLoader className={classes.spinner} size={100} loading={loading} /> : null}
-      {error || emptyStringSearch ? <Alert severity="error">{errorMessage}</Alert> : null}
+      {error ? <Alert severity="error">{errorMessage}</Alert> : null}
+      {emptyStringSearch ? <Alert severity="error">{emptyStringMessage}</Alert> : null}
       {!loading && !error && !emptyStringSearch ? renderArtists(artists) : null}
+      {displayInfoMessage ? <Alert severity="info">{infoMessage}</Alert> : null}
     </Box>
   );
 };
