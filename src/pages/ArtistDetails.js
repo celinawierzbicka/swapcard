@@ -120,7 +120,12 @@ const ArtistDetails = () => {
           </Typography>
           {renderReleases(artist.releases.edges)}
         </Box>
-        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+        <Snackbar
+          open={open}
+          autoHideDuration={4000}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
           <Alert onClose={handleClose} severity="success">
             {artist.name} was added to favorites!
           </Alert>
