@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Box, Container, Typography, Chip, Snackbar } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Typography,
+  Chip,
+  Snackbar,
+} from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
@@ -7,23 +13,48 @@ import StarIcon from "@material-ui/icons/Star";
 import { useSelector, useDispatch } from "react-redux";
 import Release from "../components/Release";
 import Favorites from "../components/Favorites";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const useStyles = makeStyles((theme) => ({
   mainArtistDetails: {
     display: "flex",
     justifyContent: "center",
+    marginBottom: theme.spacing(4),
+  },
+  bradcrumbs: {
+    marginTop: theme.spacing(4),
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: theme.spacing(4),
+      paddingRight: theme.spacing(4),
+    }
   },
   artistDetails: {
-    padding: theme.spacing(6),
-    width: "50%",
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    marginTop: theme.spacing(4),
+    [theme.breakpoints.up('md')]: {
+      width: "60%",
+      marginRight: "auto",
+    },
   },
   sectionHeading: {
     display: "flex",
-    justifyContent: "space-between",
+    flexDirection: "column-reverse",
+    alignItems: "center",
     marginBottom: theme.spacing(4),
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    }
   },
   sectionTags: {
+    display: "flex",
+    flexWrap: "wrap",
     marginBottom: theme.spacing(4),
+    justifyContent: "center",
+    [theme.breakpoints.up('sm')]: {
+      justifyContent: "flex-start",
+    }
   },
   chip: {
     margin: theme.spacing(0.5),
@@ -31,7 +62,10 @@ const useStyles = makeStyles((theme) => ({
   favorites: {
     display: "flex",
     alignItems: "center",
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(1.5),
+    [theme.breakpoints.up('sm')]: {
+      marginBottom: theme.spacing(4),
+    }
   },
   star: {
     marginLeft: theme.spacing(1),
@@ -100,38 +134,43 @@ const ArtistDetails = () => {
   };
 
   return (
-    <Container maxWidth={false} className={classes.mainArtistDetails}>
-      <Box className={classes.artistDetails}>
-        <Box className={classes.sectionHeading}>
-          <Typography variant="h2" component="h2">
-            {artist.name}
-          </Typography>
-          <Box className={classes.favorites}>
-            <Typography>{favoritesActionText}</Typography>
-            {starIcon}
-          </Box>
-        </Box>
-        <Box className={classes.sectionTags}>
-          {renderTags(artist.tags.edges)}
-        </Box>
-        <Box className={classes.sectionReleases}>
-          <Typography variant="h5" component="p">
-            Releases
-          </Typography>
-          {renderReleases(artist.releases.edges)}
-        </Box>
-        <Snackbar
-          open={open}
-          autoHideDuration={4000}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: "top", horizontal: "center" }}
-        >
-          <Alert onClose={handleClose} severity="success">
-            {artist.name} was added to favorites!
-          </Alert>
-        </Snackbar>
+    <Container maxWidth={false}>
+      <Box className={classes.bradcrumbs}>
+        <Breadcrumbs artist={artist} />
       </Box>
-      <Favorites />
+      <Box className={classes.mainArtistDetails}>
+        <Box className={classes.artistDetails}>
+          <Box className={classes.sectionHeading}>
+            <Typography variant="h2" component="h2">
+              {artist.name}
+            </Typography>
+            <Box className={classes.favorites}>
+              <Typography>{favoritesActionText}</Typography>
+              {starIcon}
+            </Box>
+          </Box>
+          <Box className={classes.sectionTags}>
+            {renderTags(artist.tags.edges)}
+          </Box>
+          <Box className={classes.sectionReleases}>
+            <Typography variant="h5" component="p">
+              Releases
+            </Typography>
+            {renderReleases(artist.releases.edges)}
+          </Box>
+          <Snackbar
+            open={open}
+            autoHideDuration={4000}
+            onClose={handleClose}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert onClose={handleClose} severity="success">
+              {artist.name} has been added to your favorites!
+            </Alert>
+          </Snackbar>
+        </Box>
+        <Favorites />
+      </Box>
     </Container>
   );
 };

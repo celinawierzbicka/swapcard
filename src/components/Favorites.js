@@ -6,14 +6,26 @@ import FavoriteArtist from "./FavoriteArtist";
 
 const useStyles = makeStyles((theme) => ({
   favoritesWrapper: {
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
+      flexDirection: "column",
+      width: "25%",
+      alignSelf: "flex-start",
+      marginTop: theme.spacing(4),
+      marginBottom: theme.spacing(4),
+    },
+  },
+  favoritesWrapperMobile: {
     display: "flex",
+    width: "100%",
     flexDirection: "column",
     alignSelf: "flex-start",
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
-    // padding: theme.spacing(2),
-    // border: `solid 1px ${theme.palette.primary.main}`,
-    borderRadius: 5,
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
   },
   message: {
     maxWidth: 275,
@@ -21,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Favorites = () => {
+const Favorites = ({ displayinMobile }) => {
   const classes = useStyles();
   const favoriteArtists = useSelector((state) => state.favoriteArtists);
 
@@ -38,12 +50,19 @@ const Favorites = () => {
     </Box>
   );
 
+  // Favorites component receives a prop 'diaplayInMobile' with value true or false to assign proper className
+  // in mobile view the component is displayed only inside the modal (accessible througn Navbar menu)
+  // in desktop view Favorites is displayed only as a side bar on the right side of the page view
+  const className = displayinMobile ? classes.favoritesWrapperMobile : classes.favoritesWrapper;
+
   const renderFavotiteArtists = (artists) => {
-    return artists.map((artist) => <FavoriteArtist key={artist.id} artist={artist} />);
+    return artists.map((artist) => (
+      <FavoriteArtist key={artist.id} artist={artist} />
+    ));
   };
 
   return (
-    <Box className={classes.favoritesWrapper}>
+    <Box className={className}>
       <Typography variant="h6">Favorite artists:</Typography>
       {favoriteArtists.length > 0
         ? renderFavotiteArtists(favoriteArtists)

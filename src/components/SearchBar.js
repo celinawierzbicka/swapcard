@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     [theme.breakpoints.up('md')]: {
-      width: 350,
+      flexDirection: "row",
     },
   },
   input: {
@@ -27,7 +27,9 @@ const useStyles = makeStyles((theme) => ({
   },
   searchButton: {
     [theme.breakpoints.up('md')]: {
-      width: 350,
+      alignSelf: "stretch",
+      marginBottom: theme.spacing(2),
+      marginLeft: theme.spacing(2),
     },
   },
 }));

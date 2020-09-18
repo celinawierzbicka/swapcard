@@ -12,7 +12,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   wrapper: {
-    width: "80%",
+    [theme.breakpoints.up('md')]: {
+      width: "80%",
+    },
   }
 }));
 
@@ -46,7 +48,7 @@ const Home = () => {
         <SearchBar handleChange={handleChange} />
         <SearchResults artists={artists} loading={loading} error={error} />
       </Box>
-      <Favorites />
+      <Favorites displayinMobile={false}/>
     </Container>
   );
 };

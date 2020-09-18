@@ -5,15 +5,19 @@ import Box from "@material-ui/core/Box";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
     marginTop: 12,
   },
   card: {
     display: "flex",
-    justifyContent: "space-between",
+    flexDirection: "column-reverse",
     padding: 12,
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+    }
   },
   bullet: {
     display: "inline-block",
@@ -30,7 +34,7 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 6,
   },
-});
+}));
 
 const Release = ({ release }) => {
   const classes = useStyles();

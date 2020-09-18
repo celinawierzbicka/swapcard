@@ -29,7 +29,7 @@ const Root = () => (
       <Navbar />
       <Switch>
         <Route path="/" exact component={Home} />
-        <Route path="/artist/:id" component={ArtistDetails} />
+        <Route path="/artist/:id" exact component={ArtistDetails} />
         <Redirect to="/" />
       </Switch>
     </Fragment>

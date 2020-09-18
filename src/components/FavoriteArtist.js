@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -8,7 +9,6 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    minWidth: 275,
     marginTop: 12,
   },
   card: {
@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: 16,
+  },
+  link: {
+    textDecoration: "none",
   },
 }));
 
@@ -29,12 +32,19 @@ const FavoriteArtist = ({ artist }) => {
     dispatch({ type: "REMOVE_FROM_FAVORITES", payload: artist });
   }
 
+  const selectArtist = (artist) => {
+    localStorage.setItem('selectedArtist', JSON.stringify(artist));
+    dispatch({type: "SELECT_ARTIST", payload: artist});
+  }
+
   return (
     <Card className={classes.root} variant="outlined">
       <CardContent className={classes.card}>
+      <Link className={classes.link} to={`/artist/${artist.id}`} onClick={() => selectArtist(artist)}>
         <Typography className={classes.title} variant="button">
           {artist.name}
         </Typography>
+      </Link>
         <RemoveCircleOutlineIcon color="primary" onClick={() => removeFromFavorites(artist)}/>
       </CardContent>
     </Card>
