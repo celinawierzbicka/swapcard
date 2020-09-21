@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchResults = (props) => {
-  const { artists, loading, error, emptyStringSearch, searchTerm } = props;
+  const { artists, loading, error, emptyStringSearch, isFirstRender, searchTerm } = props;
   const classes = useStyles();
 
   const errorMessage = "Sorry, something went wrong. Please try again.";
@@ -44,7 +44,7 @@ const SearchResults = (props) => {
     <Box className={classes.root}>
       {loading ? <ClipLoader className={classes.spinner} size={100} loading={loading} /> : null}
       {error ? <Alert severity="error">{errorMessage}</Alert> : null}
-      {emptyStringSearch ? <Alert severity="error">{emptyStringMessage}</Alert> : null}
+      {emptyStringSearch && !isFirstRender ? <Alert severity="error">{emptyStringMessage}</Alert> : null}
       {!loading && !error && !emptyStringSearch ? renderArtists(artists) : null}
       {displayInfoMessage ? <Alert severity="info">{infoMessage}</Alert> : null}
     </Box>

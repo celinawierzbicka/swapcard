@@ -62,6 +62,7 @@ const Home = () => {
       setIsFirstRender(false);
     }
   };
+  console.log(isFirstRender, searchTerm, error)
 
   return (
     <Container maxWidth={false} className={classes.mainHome}>
@@ -72,6 +73,7 @@ const Home = () => {
           loading={loading}
           error={error}
           emptyStringSearch={emptyStringSearch}
+          isFirstRender={isFirstRender}
           searchTerm={searchTerm}
         />
       </Box>
