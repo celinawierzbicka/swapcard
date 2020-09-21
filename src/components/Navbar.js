@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   moreIcon: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("md")]: {
       display: "none",
     },
   },

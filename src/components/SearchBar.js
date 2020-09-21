@@ -40,6 +40,7 @@ const Search = ({ handleChange }) => {
 
   const onInputChange = (e) => {
     setSetInputValue(e.target.value);
+    handleChange(inputValue);
   };
 
   const onFormSubmit = (e) => {

@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import useDebounce from "../hooks/useDebounce";
 import SearchBar from "../components/SearchBar";
 import SearchResults from "../components/SearchResults";
 import Favorites from "../components/Favorites";
@@ -30,17 +31,19 @@ const Home = () => {
 
   const artists = useSelector(state => state.artists);
   const searchTerm = useSelector((state) => state.searchTerm);
+  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
 
   const { loading, error, data, refetch } = useQuery(SEARCH_ARTISTS, {
     variables: { searchTerm },
     errorPolicy: "all",
     skip: isFirstRender,
+    fetchPolicy: 'cache-and-network',
   });
 
-  // new data is fetched on every update of searchTerm using Apollo's refetch function
+  // new data is fetched on every update of debouncedSearchTerm using Apollo's refetch function
   useEffect(() => {
     refetch();
-  }, [searchTerm, refetch]);
+  }, [debouncedSearchTerm, refetch]);
 
   useEffect(() => {
     if (data && data.search.artists) dispatch({ type: "SEARCH_ARTISTS", payload: data.search.artists.nodes });
