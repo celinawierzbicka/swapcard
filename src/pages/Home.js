@@ -62,7 +62,6 @@ const Home = () => {
       setIsFirstRender(false);
     }
   };
-  console.log(isFirstRender, searchTerm, error)
 
   return (
     <Container maxWidth={false} className={classes.mainHome}>
