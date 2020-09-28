@@ -8,14 +8,14 @@ import {
 } from "react-router-dom";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "@apollo/react-hooks";
+
 import reducer from "./store/reducer";
-import "./index.css";
 import Home from "./pages/Home";
 import ArtistDetails from "./pages/ArtistDetails";
 import Navbar from "./components/Navbar";
-
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
+import "./index.css";
 
 const store = createStore(reducer);
 

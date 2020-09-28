@@ -7,7 +7,6 @@ export const SEARCH_ARTISTS = gql`
         nodes {
           id
           name
-          country
           disambiguation
           mediaWikiImages {
             url
